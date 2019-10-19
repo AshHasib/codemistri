@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
 ]
 
-CRISPY_TEMPLATE = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 
