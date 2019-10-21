@@ -6,12 +6,61 @@ from django.shortcuts import redirect
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html', {})
+
+    if request.session.has_key('username'):
+        user = None
+        if request.session.get('user_type') == 'contestant':
+            user = Contestant.objects.get(username = request.session.get('username'))
+
+        elif request.session.get('user_type') == 'admin':
+            user = Admin.objects.get(username = request.session.get('username'))
+
+        data_dict = {
+            'username':user.username
+        }
+        return render(request, 'index.html', data_dict)
+
+
+    else:
+        return redirect('login')
 
 
 
 def login(request):
     form = LoginForm()
+
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+
+        if(form.is_valid()):
+            data  = form.cleaned_data
+
+            u_name = data['username']
+            passwd = data['password']
+            u_typ = data['user_type']
+
+            if u_typ == 'contestant':
+                try:
+                    contestant = Contestant.objects.get(username = u_name)
+                    # print('USer - {}'.format(contestant))
+
+                    request.session['username']=contestant.username
+                    request.session['user_type']=u_typ
+                    return redirect('index')
+
+                except Exception as e:
+                    print(e)
+
+            elif u_typ == 'admin':
+                try:
+                    admin = Admin.objects.get(username = u_name)
+                    print('Admin found - {}'.format(admin))
+
+                    request.session['username']=admin.usename
+                    request.session['user_type']=u_typ
+                    return redirect('index')
+                except Exception as e:
+                    print(e)
 
     return render(request, 'login.html', {'form':form})
 
@@ -65,7 +114,6 @@ def signup(request):
         
 
     return render(request, 'signup.html', {'form':form})
-
 
 
 
