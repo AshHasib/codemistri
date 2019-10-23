@@ -91,13 +91,6 @@ def signup(request):
         
     return render(request, 'registration/signup.html', {'form':form})
 
-
-
-def problems(request):
-    return render(request, 'problems.html', {})
-
-
-
 def submissions(request):
     return render(request, 'submissions.html', {})
 

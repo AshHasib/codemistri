@@ -3,7 +3,9 @@
     
 }
 
-
+body {
+    padding-top: 60px;
+}
 /*
 ==============================
 Login & Signup
