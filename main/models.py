@@ -2,13 +2,12 @@ from django.db import models
 
 # Create your models here.
 
-
-
 class ProfileManager(models.Manager):
 
     def createProfile(self, fullName, username, email, password, user_type):
         profile = self.createProfile(fullName, username, email, password, user_type)
         return profile
+
 
 class Profile(models.Model):
     id = models.AutoField(primary_key=True)

@@ -1,4 +1,5 @@
 from django import forms
+
 USER_TYPE = [('contestant','Contestant'),('admin','Administrator')]
 
 class LoginForm(forms.Form):

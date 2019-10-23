@@ -53,7 +53,7 @@ def login(request):
                 print(e)
                 return HttpResponse('Invalid username or password')
 
-    return render(request, 'login.html', {'form':form})
+    return render(request, 'registration/login.html', {'form':form})
 
 
 
@@ -89,8 +89,7 @@ def signup(request):
 
         return render(request, 'signup.html', {'form':form})
         
-
-    return render(request, 'signup.html', {'form':form})
+    return render(request, 'registration/signup.html', {'form':form})
 
 
 
