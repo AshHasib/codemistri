@@ -1,25 +1,29 @@
 from django.shortcuts import render
 from .forms import LoginForm, SignupForm
-from .models import Contestant, Admin
+from .models import Profile
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 def index(request):
+    if request.GET.get('Logout') == 'Logout':
+        request.session.flush()
+        return redirect('login')
 
     if request.session.has_key('username'):
         user = None
-        if request.session.get('user_type') == 'contestant':
-            user = Contestant.objects.get(username = request.session.get('username'))
 
-        elif request.session.get('user_type') == 'admin':
-            user = Admin.objects.get(username = request.session.get('username'))
+        try:
+            user = Profile.objects.get(username = request.session.get('username'))
+            data_dict = {
+                'username':user.username
+            }
+            return render(request, 'index.html', data_dict)
 
-        data_dict = {
-            'username':user.username
-        }
-        return render(request, 'index.html', data_dict)
-
+        except Exception as e:
+            print(e)
+            return redirect('login')
 
     else:
         return redirect('login')
@@ -39,28 +43,15 @@ def login(request):
             passwd = data['password']
             u_typ = data['user_type']
 
-            if u_typ == 'contestant':
-                try:
-                    contestant = Contestant.objects.get(username = u_name)
-                    # print('USer - {}'.format(contestant))
+            try:
+                user = Profile.objects.get(username = u_name, password= passwd, user_type = u_typ)
+                request.session['username'] = user.username
+                request.session['user_type'] = user.user_type
+                return redirect('index')
 
-                    request.session['username']=contestant.username
-                    request.session['user_type']=u_typ
-                    return redirect('index')
-
-                except Exception as e:
-                    print(e)
-
-            elif u_typ == 'admin':
-                try:
-                    admin = Admin.objects.get(username = u_name)
-                    print('Admin found - {}'.format(admin))
-
-                    request.session['username']=admin.usename
-                    request.session['user_type']=u_typ
-                    return redirect('index')
-                except Exception as e:
-                    print(e)
+            except ObjectDoesNotExist as e:
+                print(e)
+                return HttpResponse('Invalid username or password')
 
     return render(request, 'login.html', {'form':form})
 
@@ -84,31 +75,17 @@ def signup(request):
             u_typ = data['user_type']
 
             if pwd == repwd:
-                if u_typ == 'admin':
-                    admin = Admin()
-                    admin.fullName = f_name
-                    admin.username = u_name
-                    admin.email = eml
-                    admin.profile_img = pro_pic
-                    admin.passwd = pwd
-                    admin.save()
-                    return redirect('login')
-
-                elif u_typ =='contestant':
-                    contestant = Contestant()
-                    contestant.fullName = f_name
-                    contestant.username = u_name
-                    contestant.email = eml
-                    contestant.profile_img = pro_pic
-                    contestant.passwd = pwd
-                    contestant.save()
-                    return redirect('login')
-                else:
-                    return HttpResponse('Please fillup properly')
+                user = Profile()
+                user.fullName = f_name
+                user.username = u_name
+                user.email = eml
+                user.profile_img = pro_pic
+                user.password = pwd
+                user.user_type = u_typ
+                user.save()
+                return redirect('login')
             else:
                 return HttpResponse('Passwords Do not match')
-
-
 
         return render(request, 'signup.html', {'form':form})
         

@@ -1,9 +1,12 @@
-from .models import Contestant, Admin
+from .models import Profile
 
 def getCurrentUser(request):
     usr = None
-    if request.session.get('user_type') == 'contestant':
-        usr = Contestant.objects.get(username = request.session.get('username'))
-    else:
-        usr = Admin.objects.get(username = request.session.get('username'))
-    return {'currentUser':usr.username}
+
+    try:
+        usr = Profile.objects.get(username = request.session.get('username'))
+        return {'currentUser':usr.username}
+
+    except Exception as e:
+        print(e)
+        return {'currentUser':'None'}
