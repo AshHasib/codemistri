@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'problems',
     'crispy_forms',
     'bootstrap',
+    'fontawesome',
 
 ]
 
