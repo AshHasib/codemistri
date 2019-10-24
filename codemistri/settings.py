@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'main',
     'problems',
     'crispy_forms',
+    'bootstrap',
 
 ]
 
