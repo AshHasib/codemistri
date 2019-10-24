@@ -11,3 +11,7 @@ def getCurrentUser(request):
         print(e)
         return {'currentUser':'None'}
 
+
+def test_processor(request):
+    print('Test processor is called . . .')
+    return {'logout': 'Logout User'}
