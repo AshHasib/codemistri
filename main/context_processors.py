@@ -10,3 +10,7 @@ def getCurrentUser(request):
     except Exception as e:
         print(e)
         return {'currentUser':'None'}
+
+def logout(request):
+    if request.GET.get('Logout')== 'Logout':
+        print('Logout Button clicked. . .')
