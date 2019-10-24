@@ -1,5 +1,5 @@
 from .models import Profile
-
+from django.shortcuts import redirect
 def getCurrentUser(request):
     usr = None
 
@@ -11,6 +11,3 @@ def getCurrentUser(request):
         print(e)
         return {'currentUser':'None'}
 
-def logout(request):
-    if request.GET.get('Logout')== 'Logout':
-        print('Logout Button clicked. . .')

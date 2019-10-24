@@ -6,7 +6,11 @@ from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
+
+
 def index(request):
+    print("IN INDEX VIEW>>>>>>>>")
+
     if request.GET.get('Logout') == 'Logout':
         request.session.flush()
         return redirect('login')
@@ -22,7 +26,7 @@ def index(request):
             return render(request, 'index.html', data_dict)
 
         except Exception as e:
-            print(e)
+            print('Exception in getting current user - {}'.format(e))
             return redirect('login')
 
     else:
@@ -31,6 +35,7 @@ def index(request):
 
 
 def login(request):
+    print('IN LOGIN VIEW>>>>>>>>>>')
     form = LoginForm()
 
     if request.method == 'POST':
@@ -94,10 +99,18 @@ def signup(request):
 
 
 def submissions(request):
+    if request.GET.get('Logout') == 'Logout':
+        request.session.flush()
+        return redirect('login')
+
     return render(request, 'submissions.html', {})
 
 
 
 
 def about(request):
+    if request.GET.get('Logout') == 'Logout':
+        request.session.flush()
+        return redirect('login')
+
     return render(request, 'about.html', {})
