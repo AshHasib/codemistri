@@ -90,6 +90,7 @@ FOOTER STYLE
 
 .footer-dark .item.social>a:hover {
     opacity: 0.9;
+    color: white;
 }
 
 .footer-dark .copyright {

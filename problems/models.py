@@ -4,17 +4,19 @@ from main.models import Profile
 
 class ProblemManager(models.Manager):
 
-    def createProblem(self, title, desc, constraint, input_desc, output_desc, sample_input, sample_output):
+    def createProblem(self,**kwargs):
         problem = Problem(
-            title = title, 
-            description = desc, 
-            constraint = constraint, 
-            input_desc= input_desc, 
-            output_desc = output_desc,
-            sample_input = sample_input,
-            sample_output= sample_output
+            title = kwargs['title'], 
+            description = kwargs['description'], 
+            constraint = kwargs['constraint'], 
+            category = kwargs['category'],
+            input_desc= kwargs['input_desc'], 
+            output_desc = kwargs['output_desc'],
+            sample_input = kwargs['sample_input'],
+            sample_output= kwargs['sample_output']
             )
         return problem
+
 
 class Problem(models.Model):
     id = models.AutoField(primary_key = True)
@@ -26,6 +28,7 @@ class Problem(models.Model):
     output_desc = models.TextField()
     sample_input = models.TextField()
     sample_output = models.TextField()
+    category = models.CharField(max_length = 100)
 
     objects = ProblemManager()
 
