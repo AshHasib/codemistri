@@ -2,5 +2,92 @@
 {% load static %}
 
 {% block content %}
-    <h1>Problems</h1>
+<div class="card">
+    <div class="card-header mr-5">
+        Choose what kind of problem you want to solve
+
+
+        {% if isAdmin %}
+        , <b>or</b>
+        <a href="{% url 'create' %}" class="btn btn-lg btn-info text-center ml-2">Create Problem</a>
+        {% else %}
+
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <p>“Any fool can write code that a computer can understand. Good programmers write code that humans can
+                understand.”</p>
+            <footer class="blockquote-footer"><cite title="Source Title">Martin Fowler</cite></footer>
+        </blockquote>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center" style="width: 18rem;">
+                <a href="{% url 'problem_list' category='basics' %}"><img src="{% static 'img/code_logo.png' %}"
+                        class="card-img-top" style="width: 50%; height: 50%;" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title text-center">Basics</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center" style="width: 18rem;">
+                <a href="{% url 'problem_list' category='math' %}"><img src="{% static 'img/code_logo.png' %}"
+                        class="card-img-top" style="width: 50%; height: 50%;" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title text-center">Mathematics</h5>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center" style="width: 18rem;">
+                <a href="{% url 'problem_list' category='ds' %}"><img src="{% static 'img/code_logo.png' %}"
+                        class="card-img-top" style="width: 50%; height: 50%;" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title text-center">Data Structure</h5>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 mb-5">
+        <div class="col-md-4">
+            <div class="card text-center" style="width: 18rem;">
+                <a href="{% url 'problem_list' category='greedy' %}"><img src="{% static 'img/code_logo.png' %}"
+                        class="card-img-top" style="width: 50%; height: 50%;" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title text-center">Greedy Algorithms</h5>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center" style="width: 18rem;">
+                <a href="{% url 'problem_list' category='dp' %}"><img src="{% static 'img/code_logo.png' %}"
+                        class="card-img-top" style="width: 50%; height: 50%;" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title text-center">Dynamic Programming</h5>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center" style="width: 18rem;">
+                <a href="{% url 'problem_list' category='graph' %}"><img src="{% static 'img/code_logo.png' %}"
+                        class="card-img-top" style="width: 50%; height: 50%;" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title text-center">Graph Theory</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}

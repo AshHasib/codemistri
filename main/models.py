@@ -29,3 +29,9 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.username
+
+    def isAdmin(self):
+        if self.user_type =='admin':
+            return True
+        else:
+            return False
