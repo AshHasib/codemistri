@@ -6,14 +6,15 @@ class ProblemManager(models.Manager):
 
     def createProblem(self,**kwargs):
         problem = Problem(
+            setter= kwargs['setter'],
             title = kwargs['title'], 
             description = kwargs['description'], 
             constraint = kwargs['constraint'], 
-            category = kwargs['category'],
             input_desc= kwargs['input_desc'], 
             output_desc = kwargs['output_desc'],
             sample_input = kwargs['sample_input'],
-            sample_output= kwargs['sample_output']
+            sample_output= kwargs['sample_output'],
+            category = kwargs['category'],
             )
         return problem
 
@@ -23,12 +24,12 @@ class Problem(models.Model):
     setter = models.ForeignKey(Profile, on_delete= models.CASCADE)
     title = models.TextField()
     description = models.TextField()
-    constraint = models.TextField()
+    constraint = models.TextField(default='None')
     input_desc = models.TextField()
     output_desc = models.TextField()
-    sample_input = models.TextField()
+    sample_input = models.TextField(default='N/A')
     sample_output = models.TextField()
-    category = models.CharField(max_length = 100)
+    category = models.TextField(max_length = 100)
 
     objects = ProblemManager()
 
