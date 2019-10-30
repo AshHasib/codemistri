@@ -47,8 +47,10 @@ def create(request):
                 output_desc= data['output_desc'],
                 sample_input= data['sample_input'],
                 sample_output= data['sample_output'],
-                category= data['category']
+                category= data['category'],
+                difficulty=data['difficulty']
             )
+            
             try:
                 problem.save()
                 print('Problem saved successfully')

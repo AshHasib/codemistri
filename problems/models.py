@@ -15,6 +15,7 @@ class ProblemManager(models.Manager):
             sample_input = kwargs['sample_input'],
             sample_output= kwargs['sample_output'],
             category = kwargs['category'],
+            difficulty = kwargs['difficulty'],
             )
         return problem
 
@@ -30,7 +31,7 @@ class Problem(models.Model):
     sample_input = models.TextField(default='N/A')
     sample_output = models.TextField()
     category = models.TextField(max_length = 100)
-
+    difficulty = models.TextField(max_length = 100)
     objects = ProblemManager()
 
     class Meta:
